@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,600;1,800&display=swap");
+
+* {
+  /* font-family: "Inter", sans-serif; */
+  font-family: 'Open Sans', sans-serif;
+}
+
+#section1_header {
+  background-image: url("./assets/img/other/background.jpg");
+}
+
+#explore_header {
+  background-image: url("./assets/img/other/bg-cat-1.jpg");
+}
+
+#explore_container {
+  max-height: 100vh;
+  overflow-y: scroll;
+}
+
+#explore_container::-webkit-scrollbar {
+  display: none;
+}
+
+.post-single-image {
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30vh;
+}
+
+#t_area {
+  width: 100%;
+  padding: 10px;
+  /* border-color: white; */
+}
+
+.add {
+  cursor: pointer;
+  padding: 15px 0;
+}

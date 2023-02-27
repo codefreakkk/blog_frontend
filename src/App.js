@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Explore from "./pages/Explore";
+import Home from "./pages/Home";
+import "./assets/css/style.css"
+import "./assets/css/custom.css"
+import "./assets/css/bootstrap.min.css"
+import "./assets/css/owl.carousel.css"
+import "./assets/css/line-awesome.min.css"
+import "./assets/css/fontawesome.css"
+import "./styles.css";
+import BlogPost from "./pages/BlogPost";
+import Write from "./pages/Write";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    {/* <Home/> */}
+    {/* <Explore/> */}
+    {/* <BlogPost/> */}
+    <Write/>
+    </>
   );
 }
 
