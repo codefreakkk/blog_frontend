@@ -69,7 +69,7 @@ function BlogPostSection() {
                   </p>
                   <div class="image-groupe">
                     <div class="image">
-                      <img src="assets/img/blog/21.jpg" alt="" />
+                      {/* <img src="assets/img/blog/21.jpg" alt="" /> */}
                     </div>
                   </div>
 
@@ -190,26 +190,6 @@ function BlogPostSection() {
                         </a>
                       </li>
                     </ul>
-                  </div>
-                </div>
-
-                {/* <!--post-single-author--> */}
-                <div class="post-single-author ">
-                  <div class="authors-info">
-                    <div class="image">
-                      <a href="author.html" class="image">
-                        <img src={logo2} alt="" />
-                      </a>
-                    </div>
-                    <div class="content">
-                      <h4>sarah smith</h4>
-                      <p>
-                        {" "}
-                        Etiam vitae dapibus rhoncus. Eget etiam aenean nisi
-                        montes felis pretium donec veni. Pede vidi condimentum
-                        et aenean hendrerit. Quis sem justo nisi varius.
-                      </p>
-                    </div>
                   </div>
                 </div>
               </div>
