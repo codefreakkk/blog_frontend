@@ -26,6 +26,7 @@ function Section2() {
                 <BlogPostThumnail />
                 <BlogPostThumnail />
                 <BlogPostThumnail />
+                <BlogPostThumnail />
                 {/* blog post end */}
               </div>
             </div>

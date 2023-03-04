@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import Header from "../components/Header";
 import remove from "../assets/images/close.png";
 import header from "../assets/images/headers.png";
@@ -8,12 +8,37 @@ import uploadImage from "../assets/images/gallery.png";
 import list from "../assets/images/list.png";
 import listheader from "../assets/images/listheader.png";
 import tag from "../assets/images/tag.png";
-import Footer from "../components/Footer";
 import axios from "axios";
+import WriteBlogHeader from "../components/WriteBlogHeader";
+import { useParams } from "react-router-dom";
+import PulseLoader from "react-spinners/PulseLoader";
 
 function Write() {
   const [formValues, setFormValues] = useState([{ id: "text", value: "" }]);
   const [title, setTitle] = useState("");
+  const [imageName, setImageName] = useState([]);
+  const {id} = useParams();
+
+  useEffect(() => {
+    axios.get(`http://localhost:8000/api/v1/getblogbyid/${id}`)
+    .then((res) => {
+      const data = res.data.data;
+      const content = data.content;
+      if (content.length != 0) {
+        const parsed = JSON.parse(content);
+        let index = 0;
+        let filter = parsed.filter((result) => {
+          if (result.id == "image") {
+            return result.value = data.images[index++];
+          }
+          else return result
+        })
+        setFormValues(filter);
+        setTitle(data.title)
+      }
+    })
+    .catch((err) => console.log(err));
+  }, []);
 
   function addHeader() {
     let values = [...formValues];
@@ -33,6 +58,28 @@ function Write() {
     let values = [...formValues];
     values.push({ id: "image", value: url, files: image });
     setFormValues(values);
+
+    // set image names
+    let imageNameArray = [...imageName];
+    imageNameArray.push(image.name);
+    setImageName(imageNameArray);
+
+    // query in database
+    axios({
+      method: "POST",
+      url: "http://localhost:8000/api/v1/uploadimg",
+      headers: { "Content-Type": "multipart/form-data" },
+      data: {
+        id: id,
+        image: image,
+      }
+    })
+    .then((res) => {
+      console.log(res);
+      // if (res.data.status == true) { }
+    })
+    .catch((err) => console.log(err));
+    
   }
 
   function addQuote() {
@@ -97,22 +144,42 @@ function Write() {
 
   function deleteImage(index) {
     let values = [...formValues];
+    const image = values[index].files.name;
     values.splice(index, 1);
     setFormValues(values);
+
+    const deleteIndex = imageName.indexOf(image);
+    imageName.splice(deleteIndex, 1);
+
+    // delete query
+    axios.post("http://localhost:8000/api/v1/deleteimg", {id, index: deleteIndex})
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => console.log(err));
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    let data = formValues.filter((result) => {
-      return result.id == "image";
-    });
-    console.log(data);
+    console.log(formValues);
+    axios.post("http://localhost:8000/api/v1/publishblog", {
+      id: id,
+      content: JSON.stringify(formValues),
+      title: title
+    })
+    .then((res) => {
+      if (res.data.status == true) {
+        alert("data saved successfully");
+      }
+    })
+    .catch((err) => console.log(err));
   }
 
   return (
     <>
-      <Header />
-      <div className="container" style={{ paddingTop: "15vh" }}>
+      <WriteBlogHeader/>
+      <div className="container" style={{ paddingTop: "15vh" , paddingBottom: "5vh"}}>
+      {/* <PulseLoader color="#36d7b7" /> */}
         <div className="publish">
           <div className="editor_container">
             <span onClick={addHeader} className="mr-3 pointer">
@@ -162,6 +229,7 @@ function Write() {
             name=""
             id="title"
             rows="1"
+            value={title}
             placeholder="Enter Title"
             onChange={(e) => setTitle(e.target.value)}
           ></textarea>
@@ -180,6 +248,7 @@ function Write() {
                     name=""
                     id="t_area"
                     rows="7"
+                    value={res.value}
                     placeholder="Start writing here"
                     onChange={(e) => handleTextChange(e, index)}
                   ></textarea>
@@ -195,6 +264,7 @@ function Write() {
                   <textarea
                     name=""
                     id="t_area"
+                    value={res.value}
                     rows="1"
                     placeholder="Enter header"
                     onChange={(e) => handleHeaderChange(e, index)}
@@ -227,6 +297,7 @@ function Write() {
                     name=""
                     id="t_area"
                     rows="1"
+                    value={res.value}
                     placeholder="Enter Quote"
                     onChange={(e) => handleQuoteChange(e, index)}
                   ></textarea>
@@ -251,6 +322,7 @@ function Write() {
                   <textarea
                     name=""
                     id="t_area"
+                    value={res.value}
                     rows="1"
                     placeholder="Enter list item"
                     onChange={(e) => handleListChange(e, index)}
@@ -268,6 +340,7 @@ function Write() {
                     name=""
                     id="t_area"
                     rows="1"
+                    value={res.value}
                     placeholder="Enter tags seprated with spaces"
                     onChange={(e) => handleTagsChange(e, index)}
                   ></textarea>

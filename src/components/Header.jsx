@@ -1,6 +1,20 @@
+import axios from "axios";
 import React from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
+
+  function handleWrite() {
+    axios.post("http://localhost:8000/api/v1/createpost")
+    .then((res) => {
+      if (res.data.status === true) {
+        navigate(`/write/${res.data.data._id}`)
+      }
+    })
+    .catch((err) => alert("Some error occured"));
+  }
+
   return (
     <>
       <header class="header navbar-expand-lg fixed-top">
@@ -14,52 +28,73 @@ function Header() {
                 <div class="collapse navbar-collapse" id="main_nav">
                   <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                      <a
-                        class="nav-link dropdown-toggle"
-                        href="index.html"
-                        data-toggle="dropdown"
-                      >
-                        Home
-                      </a>
+                      <NavLink to="/">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          href="#"
+                          data-toggle="dropdown"
+                        >
+                          Home
+                        </a>
+                      </NavLink>
                     </li>
                     <li class="nav-item dropdown">
-                      <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        data-toggle="dropdown"
-                      >
-                        Explore
-                      </a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                      <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        data-toggle="dropdown"
-                      >
-                        Write
-                      </a>
+                      <NavLink to="/explore">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          href="#"
+                          data-toggle="dropdown"
+                        >
+                          Explore
+                        </a>
+                      </NavLink>
                     </li>
 
                     <li class="nav-item dropdown">
-                      <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        data-toggle="dropdown"
-                      >
-                        About
-                      </a>
+                        <a 
+                          onClick={handleWrite}
+                          class="nav-link dropdown-toggle"
+                          href="#"
+                          data-toggle="dropdown"
+                        >
+                          Write
+                        </a>
                     </li>
 
                     <li class="nav-item dropdown">
-                      <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        data-toggle="dropdown"
-                      >
-                        Contact
-                      </a>
+                      <NavLink to="/drafts">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          href="#"
+                          data-toggle="dropdown"
+                        >
+                          Drafts
+                        </a>
+                      </NavLink>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                      <NavLink to="/login">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          href="#"
+                          data-toggle="dropdown"
+                        >
+                          login
+                        </a>
+                      </NavLink>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                      <NavLink to="/signup">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          href="#"
+                          data-toggle="dropdown"
+                        >
+                          signup
+                        </a>
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
