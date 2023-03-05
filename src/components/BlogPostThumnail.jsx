@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../assets/img/blog/21.jpg";
 
-function BlogPostThumnail() {
+function BlogPostThumnail({title}) {
   return (
     <>
       <div class="post-list post-list-style4">
@@ -13,17 +13,16 @@ function BlogPostThumnail() {
         <div class="post-list-content">
           <ul class="entry-meta">
             <li class="entry-cat">
-              <a class="category-style-1">marketing</a>
+              <a class="category-style-1">Contributed By </a>
             </li>
             <li class="post-date">
               {" "}
-              <span class="line"></span> february 10 ,2022
+              <span class="line"></span> Harsh said
             </li>
           </ul>
           <h5 class="entry-title">
-            <a>The best marketing doesn't feel like marketing</a>
+            <a>{title.substring(0, 60)}</a>
           </h5>
-
           <div class="post-btn">
             <a class="btn-read-more">
               Continue Reading <i class="las la-long-arrow-alt-right"></i>

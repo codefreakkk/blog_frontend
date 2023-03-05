@@ -8,7 +8,7 @@ function Explore() {
   return (
     <>
         <Header />
-        <ExploreHeader title={"Explore"}/>
+        <ExploreHeader/>
         <ExploreSection1/>
         <Footer />
     </>

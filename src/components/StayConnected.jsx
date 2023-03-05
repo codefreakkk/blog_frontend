@@ -37,20 +37,6 @@ function StayConnected() {
               </a>
               <p>Youtube 120k</p>
             </div>
-
-            <div class="item color-dribbble">
-              <a href="#">
-                <i class="fab fa-dribbble"></i>
-              </a>
-              <p>dribbble 17k</p>
-            </div>
-
-            <div class="item color-pinterest">
-              <a href="#">
-                <i class="fab fa-pinterest"></i>
-              </a>
-              <p>pinterest 10k</p>
-            </div>
           </div>
         </div>
       </div>

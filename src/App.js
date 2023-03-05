@@ -12,11 +12,18 @@ import BlogPost from "./pages/BlogPost";
 import Write from "./pages/Write";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Drafts from "./pages/Drafts";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <>
       <BrowserRouter>
+      <Routes>
+          <Route path="/login" element={<Login/>} />
+        </Routes>
+        <Routes>
+          <Route path="/blog" element={<BlogPost />} />
+        </Routes>
         <Routes>
           <Route path="/explore" element={<Explore />} />
         </Routes>
@@ -27,7 +34,7 @@ function App() {
           <Route path="/write/:id" element={<Write />} />
         </Routes>
         <Routes>
-          <Route path="/drafts" element={<Drafts/>} />
+          <Route path="/drafts" element={<Drafts />} />
         </Routes>
         <Routes>
           <Route path="/" element={<Home />} />

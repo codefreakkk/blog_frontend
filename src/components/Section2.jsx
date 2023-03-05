@@ -1,11 +1,26 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
 import BlogPostThumnail from "./BlogPostThumnail";
-import PopularPostThumbnail from "./PopularPostThumbnail";
 import StayConnected from "./StayConnected";
 import Tags from "./Tags";
 import NewsLetter from "./NewsLetter";
+import axios from "axios";
 
 function Section2() {
+  const [blog, setBlog] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/v1/getallposts")
+      .then((res) => {
+        if (res.data.status === true) {
+          setBlog(res.data.data);
+        } else {
+          alert("Some error occured");
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <section class="section-feature-1">
@@ -22,11 +37,17 @@ function Section2() {
                 </div>
 
                 {/* blog post start */}
-                <BlogPostThumnail />
-                <BlogPostThumnail />
-                <BlogPostThumnail />
-                <BlogPostThumnail />
-                <BlogPostThumnail />
+                {blog.length == 0 ? (
+                  <div>Loading</div>
+                ) : (
+                  blog.map((result, index) => {
+                    console.log(result);
+                    return <BlogPostThumnail 
+                      key={index}
+                      title={result.title}
+                    />;
+                  })
+                )}
                 {/* blog post end */}
               </div>
             </div>
@@ -51,21 +72,6 @@ function Section2() {
                         </a>
                       </form>
                     </div>
-                  </div>
-
-                  <div class="widget">
-                    <div class="widget-title">
-                      <h5>popular Posts</h5>
-                    </div>
-
-                    <ul class="widget-popular-posts">
-                      {/* popular post start */}
-                      <PopularPostThumbnail />
-                      <PopularPostThumbnail />
-                      <PopularPostThumbnail />
-                      <PopularPostThumbnail />
-                      {/* popular post end */}
-                    </ul>
                   </div>
 
                   {/* newsletter start */}

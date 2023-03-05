@@ -112,3 +112,19 @@
   color: rgb(233, 233, 233);
   font-size: 32px;
 }
+
+
+.explore_search_container {
+  display: flex;
+  width: 100%;
+  padding-bottom: 25px;
+  /* background-color: red; */
+}
+
+.exp_form {
+  width: 90%;
+}
+
+.exp_btn {
+  margin-left: 35px;
+}
