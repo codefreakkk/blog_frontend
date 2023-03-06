@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
@@ -8,6 +8,7 @@ import Header from "../components/Header";
 function Login() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const navigate = useNavigate();
 
   function handleSubmit() {
     axios.post("http://localhost:8000/api/v1/login", {
@@ -17,14 +18,21 @@ function Login() {
         const data = res.data;
         if (data.success === true) {
             // need to work on this feature
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("email", data.userEmail);
+            localStorage.setItem("name", data.userName);
+            navigate("/explore")
+        }
+        else {
+          alert("Login failed")
         }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => alert("Some error occured"));
   }
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <section class="login">
         <div class="container-fluid">
           <div class="row">
@@ -79,7 +87,7 @@ function Login() {
           </div>
         </div>
       </section>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

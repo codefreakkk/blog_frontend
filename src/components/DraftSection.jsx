@@ -13,17 +13,20 @@ function DraftSection() {
           <div class="row">
             {/* <!--conetnt--> */}
             <div class="col-lg-8 oredoo-content" id="explore_container">
-              <div class="theiaStickySidebar" id="draftsection" style={{ height: "80vh", overflowY: "scroll"}}>
+              <div
+                class="theiaStickySidebar"
+                id="draftsection"
+                style={{
+                  height: "80vh",
+                  overflowY: "scroll",
+                  marginBottom: "5vh",
+                }}
+              >
                 {/* Blog post */}
                 <DraftThumbnail />
                 <DraftThumbnail />
-
                 <DraftThumbnail />
-
                 <DraftThumbnail />
-
-
-
                 {/* Blog post end */}
               </div>
             </div>
@@ -56,7 +59,6 @@ function DraftSection() {
 
                   {/* <!--stay connected--> */}
                   <StayConnected />
-
                 </div>
               </div>
             </div>

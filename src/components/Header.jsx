@@ -1,18 +1,37 @@
 import axios from "axios";
-import React from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { React, useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
+  const [loginState, setLoginState] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("token") != null) {
+      setLoginState(true);
+    } else {
+      navigate("/");
+    }
+  }, []);
+
+  function handleLogout() {
+    localStorage.clear();
+    navigate("/");
+  }
 
   function handleWrite() {
-    axios.post("http://localhost:8000/api/v1/createpost")
-    .then((res) => {
-      if (res.data.status === true) {
-        navigate(`/write/${res.data.data._id}`)
-      }
-    })
-    .catch((err) => alert("Some error occured"));
+    if (loginState) {
+      axios
+        .post("http://localhost:8000/api/v1/createpost")
+        .then((res) => {
+          if (res.data.status === true) {
+            navigate(`/write/${res.data.data._id}`);
+          } else {
+            alert("Cannot write some error");
+          }
+        })
+        .catch((err) => alert("Some error occured"));
+    }
   }
 
   return (
@@ -31,7 +50,6 @@ function Header() {
                       <NavLink to="/">
                         <a
                           class="nav-link dropdown-toggle"
-                          href="#"
                           data-toggle="dropdown"
                         >
                           Home
@@ -42,7 +60,6 @@ function Header() {
                       <NavLink to="/explore">
                         <a
                           class="nav-link dropdown-toggle"
-                          href="#"
                           data-toggle="dropdown"
                         >
                           Explore
@@ -50,22 +67,23 @@ function Header() {
                       </NavLink>
                     </li>
 
-                    <li class="nav-item dropdown">
-                        <a 
+                    {loginState ? (
+                      <li class="nav-item dropdown">
+                        <a
                           onClick={handleWrite}
                           class="nav-link dropdown-toggle"
-                          href="#"
-                          data-toggle="dropdown"
                         >
                           Write
                         </a>
-                    </li>
+                      </li>
+                    ) : (
+                      <></>
+                    )}
 
                     <li class="nav-item dropdown">
                       <NavLink to="/drafts">
                         <a
                           class="nav-link dropdown-toggle"
-                          href="#"
                           data-toggle="dropdown"
                         >
                           Drafts
@@ -74,28 +92,45 @@ function Header() {
                     </li>
 
                     <li class="nav-item dropdown">
-                      <NavLink to="/login">
+                      <NavLink to="/about">
                         <a
                           class="nav-link dropdown-toggle"
-                          href="#"
                           data-toggle="dropdown"
                         >
-                          login
+                          About
                         </a>
                       </NavLink>
                     </li>
 
-                    <li class="nav-item dropdown">
-                      <NavLink to="/signup">
-                        <a
-                          class="nav-link dropdown-toggle"
-                          href="#"
-                          data-toggle="dropdown"
-                        >
-                          signup
-                        </a>
-                      </NavLink>
-                    </li>
+                    {loginState ? (
+                      <div></div>
+                    ) : (
+                      <li class="nav-item dropdown">
+                        <NavLink to="/login">
+                          <a
+                            class="nav-link dropdown-toggle"
+                            data-toggle="dropdown"
+                          >
+                            login
+                          </a>
+                        </NavLink>
+                      </li>
+                    )}
+
+                    {loginState ? (
+                      <div></div>
+                    ) : (
+                      <li class="nav-item dropdown">
+                        <NavLink to="/signup">
+                          <a
+                            class="nav-link dropdown-toggle"
+                            data-toggle="dropdown"
+                          >
+                            Signup
+                          </a>
+                        </NavLink>
+                      </li>
+                    )}
                   </ul>
                 </div>
               </nav>
@@ -103,8 +138,12 @@ function Header() {
 
             <div class="header-right">
               <div class="botton-sub mr-4">
-                <a href="signup.html" class="btn-subscribe">
-                  Subscribe
+                <a
+                  class="btn btn-dark"
+                  onClick={handleLogout}
+                  style={{ color: "white" }}
+                >
+                  {loginState ? "Logout" : "Subscribe"}
                 </a>
               </div>
             </div>

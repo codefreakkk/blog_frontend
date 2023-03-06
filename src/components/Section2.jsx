@@ -41,7 +41,7 @@ function Section2() {
                   <div>Loading</div>
                 ) : (
                   blog.map((result, index) => {
-                    console.log(result);
+                    // console.log(result);
                     return <BlogPostThumnail 
                       key={index}
                       title={result.title}

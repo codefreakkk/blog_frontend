@@ -10,34 +10,37 @@ import listheader from "../assets/images/listheader.png";
 import tag from "../assets/images/tag.png";
 import axios from "axios";
 import WriteBlogHeader from "../components/WriteBlogHeader";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
 
 function Write() {
   const [formValues, setFormValues] = useState([{ id: "text", value: "" }]);
   const [title, setTitle] = useState("");
   const [imageName, setImageName] = useState([]);
-  const {id} = useParams();
+  const [previewImage, setPreviewImage] = useState("");
+  const [preview, setPreviewImg] = useState("");
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/v1/getblogbyid/${id}`)
-    .then((res) => {
-      const data = res.data.data;
-      const content = data.content;
-      if (content.length != 0) {
-        const parsed = JSON.parse(content);
-        let index = 0;
-        let filter = parsed.filter((result) => {
-          if (result.id == "image") {
-            return result.value = data.images[index++];
-          }
-          else return result
-        })
-        setFormValues(filter);
-        setTitle(data.title)
-      }
-    })
-    .catch((err) => console.log(err));
+    axios
+      .get(`http://localhost:8000/api/v1/getblogbyid/${id}`)
+      .then((res) => {
+        const data = res.data.data;
+        const content = data.content;
+        if (content.length != 0) {
+          const parsed = JSON.parse(content);
+          let index = 0;
+          let filter = parsed.filter((result) => {
+            if (result.id == "image") {
+              return (result.value = data.images[index++]);
+            } else return result;
+          });
+          setFormValues(filter);
+          setTitle(data.title);
+        }
+      })
+      .catch((err) => navigate("/"));
   }, []);
 
   function addHeader() {
@@ -72,14 +75,13 @@ function Write() {
       data: {
         id: id,
         image: image,
-      }
+      },
     })
-    .then((res) => {
-      console.log(res);
-      // if (res.data.status == true) { }
-    })
-    .catch((err) => console.log(err));
-    
+      .then((res) => {
+        console.log(res);
+        // if (res.data.status == true) { }
+      })
+      .catch((err) => console.log(err));
   }
 
   function addQuote() {
@@ -104,6 +106,12 @@ function Write() {
       values.push({ id: "tags", value: "" });
       setFormValues(values);
     }
+  }
+
+  function setPreview(e) {
+    setPreviewImage(e.target.files[0]);
+    const url = URL.createObjectURL(e.target.files[0]);
+    setPreviewImg(url);
   }
 
   function handleTextChange(e, index) {
@@ -152,34 +160,51 @@ function Write() {
     imageName.splice(deleteIndex, 1);
 
     // delete query
-    axios.post("http://localhost:8000/api/v1/deleteimg", {id, index: deleteIndex})
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => console.log(err));
+    axios
+      .post("http://localhost:8000/api/v1/deleteimg", {
+        id,
+        index: deleteIndex,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
   }
 
+
+  // need to work on this feature
   function handleSubmit(e) {
     e.preventDefault();
     console.log(formValues);
-    axios.post("http://localhost:8000/api/v1/publishblog", {
-      id: id,
-      content: JSON.stringify(formValues),
-      title: title
+    axios({
+      method: "POSt",
+      url: "http://localhost:8000/api/v1/publishblog",
+      headers: { "Content-Type": "multipart/form-data" },
+      data: {
+        id: id,
+        content: JSON.stringify(formValues),
+        title: title,
+        previewImage: previewImage,
+        userName: localStorage.getItem("name"),
+      },
     })
-    .then((res) => {
-      if (res.data.status == true) {
-        alert("data saved successfully");
-      }
-    })
-    .catch((err) => console.log(err));
+      .then((res) => {
+        if (res.data.status == true) {
+          alert("data saved successfully");
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
     <>
-      <WriteBlogHeader/>
-      <div className="container" style={{ paddingTop: "15vh" , paddingBottom: "5vh"}}>
-      {/* <PulseLoader color="#36d7b7" /> */}
+      <WriteBlogHeader />
+
+      <div
+        className="container"
+        style={{ paddingTop: "15vh", paddingBottom: "5vh" }}
+      >
+        {/* <PulseLoader color="#36d7b7" /> */}
         <div className="publish">
           <div className="editor_container">
             <span onClick={addHeader} className="mr-3 pointer">
@@ -215,6 +240,19 @@ function Write() {
             <span className="mr-3 pointer" onClick={addTag}>
               <img src={tag} style={{ height: "25px" }} alt="" />
             </span>
+            <label htmlFor="previewImg" style={{ cursor: "pointer" }}>
+              pre
+              <span>
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  name=""
+                  accept="image/png , image/jpg , image/jpeg"
+                  onChange={setPreview}
+                  id="previewImg"
+                />
+              </span>
+            </label>
           </div>
           <div class="botton-sub" onClick={handleSubmit}>
             <a href="" class="btn-subscribe">
@@ -222,6 +260,20 @@ function Write() {
             </a>
           </div>
         </div>
+
+        {preview.length > 0 ? (
+          <div className="previewContainer">
+            {" "}
+            <img
+              src={preview}
+              alt=""
+              style={{ height: "25vh" }}
+              srcset=""
+            />{" "}
+          </div>
+        ) : (
+          <></>
+        )}
 
         {/* enter title */}
         <div className="mb-3 header_container">
