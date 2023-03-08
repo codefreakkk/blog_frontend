@@ -78,7 +78,7 @@
   display: flex;
   justify-content: space-between;
   /* padding-left: 25px; */
-  padding-bottom: 5vh;
+  padding-bottom: 3vh;
 }
 
 .pointer {
@@ -122,7 +122,7 @@
 }
 
 .exp_form {
-  width: 90%;
+  width: 100%;
 }
 
 .exp_btn {
@@ -134,4 +134,27 @@
   align-items: center;
   justify-content: center;
   padding: 60px 0;
+}
+
+.alert_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+}
+
+.alert_inner {
+  height: 30px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  flex-direction: row;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 20px 20px;
+  margin-top:10vh;
 }

@@ -19,28 +19,45 @@ function Write() {
   const [imageName, setImageName] = useState([]);
   const [previewImage, setPreviewImage] = useState("");
   const [preview, setPreviewImg] = useState("");
+  const [previewImageState, setPreviewImageState] = useState(false);
+  const [submit, submitState] = useState(false);
+  const [alertState, setAlertState] = useState(false);
+  const [msg, setAlertMsg] = useState("");
+  const [color, setColor] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/v1/getblogbyid/${id}`)
+      .get(`http://localhost:8000/api/v1/getblogbyid/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         const data = res.data.data;
-        const content = data.content;
-        if (content.length != 0) {
-          const parsed = JSON.parse(content);
-          let index = 0;
-          let filter = parsed.filter((result) => {
-            if (result.id == "image") {
-              return (result.value = data.images[index++]);
-            } else return result;
-          });
-          setFormValues(filter);
-          setTitle(data.title);
+        if (data != null) {
+          const content = data.content;
+          if (content.length != 0) {
+            const parsed = JSON.parse(content);
+            let index = 0;
+            let filter = parsed.filter((result) => {
+              if (result.id == "image") {
+                return (result.value = data.images[index++]);
+              } else return result;
+            });
+            setFormValues(filter);
+            setTitle(data.title);
+            setPreviewImg(data.previewImage);
+            if (data.previewImage.length != 0) {
+              setPreviewImageState(true);
+            }
+          }
         }
       })
-      .catch((err) => navigate("/"));
+      .catch((err) => {
+        navigate("/");
+      });
   }, []);
 
   function addHeader() {
@@ -71,7 +88,10 @@ function Write() {
     axios({
       method: "POST",
       url: "http://localhost:8000/api/v1/uploadimg",
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: localStorage.getItem("token"),
+      },
       data: {
         id: id,
         image: image,
@@ -108,10 +128,11 @@ function Write() {
     }
   }
 
-  function setPreview(e) {
+  function setPreviewPhoto(e) {
     setPreviewImage(e.target.files[0]);
     const url = URL.createObjectURL(e.target.files[0]);
     setPreviewImg(url);
+    setPreviewImageState(true);
   }
 
   function handleTextChange(e, index) {
@@ -161,25 +182,53 @@ function Write() {
 
     // delete query
     axios
-      .post("http://localhost:8000/api/v1/deleteimg", {
-        id,
-        index: deleteIndex,
-      })
+      .post(
+        "http://localhost:8000/api/v1/deleteimg",
+        {
+          id,
+          index: deleteIndex,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((res) => {
         console.log(res.data);
       })
       .catch((err) => console.log(err));
   }
 
-
-  // need to work on this feature
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(formValues);
+    submitState(true);
+    setAlertState(false);
+
+    if (previewImageState === false) {
+      submitState(false);
+      setAlertState(true);
+      setAlertMsg("Please add preview image before submitting.");
+      setColor("rgba(236, 33, 33, 0.753)");
+      submitState(false);
+      return;
+    }
+
+    if (title.length === 0) {
+      setAlertState(true);
+      setAlertMsg("Please enter blog title.");
+      setColor("rgba(236, 33, 33, 0.753)");
+      submitState(false);
+      return;
+    }
+
     axios({
-      method: "POSt",
+      method: "POST",
       url: "http://localhost:8000/api/v1/publishblog",
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: localStorage.getItem("token"),
+      },
       data: {
         id: id,
         content: JSON.stringify(formValues),
@@ -190,7 +239,12 @@ function Write() {
     })
       .then((res) => {
         if (res.data.status == true) {
-          alert("data saved successfully");
+          submitState(false);
+          setAlertMsg("Your blog has been published.");
+          setAlertState(true);
+          setColor("#03a87c");
+        } else {
+          alert(res.data.message);
         }
       })
       .catch((err) => console.log(err));
@@ -199,11 +253,20 @@ function Write() {
   return (
     <>
       <WriteBlogHeader />
+      {alertState ? (
+        <div className="alert_container">
+          <div className="alert_inner" style={{backgroundColor: color}}>{msg}</div>
+        </div>
+      ) : (
+        <></>
+      )}
 
       <div
         className="container"
         style={{ paddingTop: "15vh", paddingBottom: "5vh" }}
       >
+        {/* alert */}
+
         {/* <PulseLoader color="#36d7b7" /> */}
         <div className="publish">
           <div className="editor_container">
@@ -248,17 +311,23 @@ function Write() {
                   type="file"
                   name=""
                   accept="image/png , image/jpg , image/jpeg"
-                  onChange={setPreview}
+                  onChange={setPreviewPhoto}
                   id="previewImg"
                 />
               </span>
             </label>
           </div>
-          <div class="botton-sub" onClick={handleSubmit}>
-            <a href="" class="btn-subscribe">
-              Publish
-            </a>
-          </div>
+          {submit ? (
+            <div className="mt-2">
+              <PulseLoader color="#747373" />
+            </div>
+          ) : (
+            <div class="botton-sub" onClick={handleSubmit}>
+              <a href="" class="btn-subscribe">
+                Publish
+              </a>
+            </div>
+          )}
         </div>
 
         {preview.length > 0 ? (

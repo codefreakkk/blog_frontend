@@ -2,22 +2,19 @@ import axios from "axios";
 import { React, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-function Header() {
+function ExploreNavbar() {
   const navigate = useNavigate();
   const [loginState, setLoginState] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("token") != null) {
       setLoginState(true);
-    } else {
-      navigate("/");
     }
   }, []);
 
   function handleLogout() {
     localStorage.clear();
     navigate("/");
-    window.location.reload();
   }
 
   function handleWrite() {
@@ -92,16 +89,20 @@ function Header() {
                       <></>
                     )}
 
-                    {loginState ? (<li class="nav-item dropdown">
-                      <NavLink to="/drafts">
-                        <a
-                          class="nav-link dropdown-toggle"
-                          data-toggle="dropdown"
-                        >
-                          Drafts
-                        </a>
-                      </NavLink>
-                    </li>) : <></>}
+                    {loginState ? (
+                      <li class="nav-item dropdown">
+                        <NavLink to="/drafts">
+                          <a
+                            class="nav-link dropdown-toggle"
+                            data-toggle="dropdown"
+                          >
+                            Drafts
+                          </a>
+                        </NavLink>
+                      </li>
+                    ) : (
+                      <></>
+                    )}
 
                     <li class="nav-item dropdown">
                       <NavLink to="/about">
@@ -166,4 +167,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default ExploreNavbar;

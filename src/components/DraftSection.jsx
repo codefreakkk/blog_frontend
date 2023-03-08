@@ -1,11 +1,30 @@
-import React from "react";
-import ExploreThumbnail from "./ExploreThumbnail";
+import { React, useEffect, useState } from "react";
 import NewsLetter from "./NewsLetter";
 import StayConnected from "./StayConnected";
-import PopularPostThumbnail from "./PopularPostThumbnail";
 import DraftThumbnail from "./DraftThumbnail";
+import axios from "axios";
+import PulseLoader from "react-spinners/PulseLoader";
 
 function DraftSection() {
+  const [blog, setBlog] = useState([]);
+  const [blogState, setBlogState] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/v1/drafts", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((result) => {
+        if (result.data.status === true) {
+          setBlog(result.data.data);
+          setBlogState(false);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <section class="blog-layout-5">
@@ -23,10 +42,20 @@ function DraftSection() {
                 }}
               >
                 {/* Blog post */}
-                <DraftThumbnail />
-                <DraftThumbnail />
-                <DraftThumbnail />
-                <DraftThumbnail />
+                {blog.length === 0 ? <div>No blogs to show</div> : <></>}
+                {blogState === true ? (
+                  <div className="mt-3"><PulseLoader color="#747373" /></div>
+                ) : (
+                  blog.map((result, index) => {
+                    return (
+                      <DraftThumbnail
+                        key={index}
+                        id={result._id}
+                        title={result.title}
+                      />
+                    );
+                  })
+                )}
                 {/* Blog post end */}
               </div>
             </div>

@@ -4,9 +4,12 @@ import StayConnected from "./StayConnected";
 import Tags from "./Tags";
 import NewsLetter from "./NewsLetter";
 import axios from "axios";
+import PulseLoader from "react-spinners/PulseLoader";
+
 
 function Section2() {
   const [blog, setBlog] = useState([]);
+  const [blogState, setBlogState] = useState(true);
 
   useEffect(() => {
     axios
@@ -14,6 +17,7 @@ function Section2() {
       .then((res) => {
         if (res.data.status === true) {
           setBlog(res.data.data);
+          setBlogState(false);
         } else {
           alert("Some error occured");
         }
@@ -37,15 +41,19 @@ function Section2() {
                 </div>
 
                 {/* blog post start */}
-                {blog.length == 0 ? (
-                  <div>Loading</div>
+                {blogState == true ? (
+                  <div className="mt-2"><PulseLoader color="#747373" /></div>
                 ) : (
                   blog.map((result, index) => {
                     // console.log(result);
-                    return <BlogPostThumnail 
-                      key={index}
-                      title={result.title}
-                    />;
+                    return (
+                      <BlogPostThumnail
+                        key={index}
+                        title={result.title}
+                        previewImage={result.previewImage}
+                        userName={result.userName}
+                      />
+                    );
                   })
                 )}
                 {/* blog post end */}

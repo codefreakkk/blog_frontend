@@ -1,7 +1,24 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function WriteBlogHeader() {
+  const navigate = useNavigate();
+  const [loginState, setLoginState] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("token") != null) {
+      setLoginState(true);
+    } else {
+      navigate("/");
+    }
+  }, []);
+
+  function handleLogout() {
+    localStorage.clear();
+    navigate("/");
+  }
+
   return (
     <header class="header navbar-expand-lg fixed-top">
       <div class="container-fluid">
@@ -17,7 +34,6 @@ function WriteBlogHeader() {
                     <NavLink to="/">
                       <a
                         class="nav-link dropdown-toggle"
-                        href="#"
                         data-toggle="dropdown"
                       >
                         Home
@@ -25,32 +41,32 @@ function WriteBlogHeader() {
                     </NavLink>
                   </li>
                   <li class="nav-item dropdown">
-                    <NavLink to="explore">
+                    <NavLink to="/explore">
                       <a
                         class="nav-link dropdown-toggle"
-                        href="#"
                         data-toggle="dropdown"
                       >
                         Explore
                       </a>
                     </NavLink>
                   </li>
-                  <li class="nav-item dropdown">
-                      <NavLink to="/drafts">
-                        <a
-                          class="nav-link dropdown-toggle"
-                          href="#"
-                          data-toggle="dropdown"
-                        >
-                          Drafts
-                        </a>
-                      </NavLink>
-                    </li>
+                  {loginState ? (
+                    <li class="nav-item dropdown">
+                    <NavLink to="/drafts">
+                      <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        data-toggle="dropdown"
+                      >
+                        Drafts
+                      </a>
+                    </NavLink>
+                  </li>
+                  ) : <></>}
                   <li class="nav-item dropdown">
                     <NavLink to="/about">
                       <a
                         class="nav-link dropdown-toggle"
-                        href="#"
                         data-toggle="dropdown"
                       >
                         About
@@ -64,8 +80,12 @@ function WriteBlogHeader() {
 
           <div class="header-right">
             <div class="botton-sub mr-4">
-              <a href="signup.html" class="btn-subscribe">
-                Subscribe
+              <a
+                class="btn btn-dark"
+                onClick={handleLogout}
+                style={{ color: "white" }}
+              >
+                {loginState ? "Logout" : "Subscribe"}
               </a>
             </div>
           </div>

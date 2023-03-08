@@ -1,13 +1,13 @@
 import React from "react";
 import logo from "../assets/img/blog/21.jpg";
 
-function BlogPostThumnail({title}) {
+function BlogPostThumnail({title, previewImage, userName}) {
   return (
     <>
       <div class="post-list post-list-style4">
         <div class="post-list-image">
           <a href="post-single.html">
-            <img src={logo} alt="" />
+            <img src={previewImage} alt="" />
           </a>
         </div>
         <div class="post-list-content">
@@ -17,7 +17,7 @@ function BlogPostThumnail({title}) {
             </li>
             <li class="post-date">
               {" "}
-              <span class="line"></span> Harsh said
+              <span class="line"></span> {userName}
             </li>
           </ul>
           <h5 class="entry-title">

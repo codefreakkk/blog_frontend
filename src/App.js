@@ -31,10 +31,10 @@ function App() {
           <Route path="/post" element={<BlogPost />} />
         </Routes>
         <Routes>
-          <Route path="/write/:id" element={<Write />} />
+          <Route path="/drafts" element={<Drafts/>} />
         </Routes>
         <Routes>
-          <Route path="/drafts" element={<Drafts />} />
+          <Route path="/write/:id" element={<Write />} />
         </Routes>
         <Routes>
           <Route path="/" element={<Home />} />

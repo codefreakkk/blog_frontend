@@ -12,7 +12,7 @@ function ExploreHeader() {
                             <h1>Explore</h1>
                             <p class="links"><a href="index.html">Home <i class="las la-angle-right"></i></a> Explore</p>
                             <p class="desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi mollitia, adipisci odio iusto aperiam ea et 
-                                obcaecati! Nulla similique est <br/> possimus rerum. Tempora quas sint ex, doloremque quis aspernatur quaerat.</p>
+                                obcaecati! Nulla similique est <br/> possimus rerum. quaerat.</p>
                         </div>
                     </div>  
                 </div>
