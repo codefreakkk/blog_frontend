@@ -3,8 +3,9 @@ import React from 'react'
 function DraftHeader() {
   return (
     <>
-        <div class="section-heading" id="explore_header">
-        <div class="container-fluid">
+        <div className="container" id="explore_cont">
+          <h1>Drafts</h1>
+        {/* <div class="container-fluid">
           <div class="section-heading-5">
             <div class="row">
               <div class="col-lg-10">
@@ -17,14 +18,13 @@ function DraftHeader() {
                     Drafts
                   </p>
                   <p style={{ fontWeight: "600" }}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quasi mollitia, adipisci odio iusto aperiam ea et
+                    Edit or delete your blogs
                   </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   )

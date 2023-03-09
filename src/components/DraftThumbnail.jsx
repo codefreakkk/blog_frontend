@@ -2,12 +2,31 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import pen from "../assets/images/edit.png";
 import delImg from "../assets/images/delete.png";
+import axios from "axios";
 
 function DraftThumbnail({ id, title }) {
   const navigate = useNavigate();
 
+  function handleEdit() {
+    navigate(`/write/${id}`);
+  }
+
   function handleDelete() {
-    navigate(`/write/${id}`)
+    axios
+      .delete(`http://localhost:8000/api/v1/deletepost/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        if (res.data.status === true) {
+          window.location.reload();
+        }
+        else {
+          alert(res.data.message);
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -26,10 +45,10 @@ function DraftThumbnail({ id, title }) {
                 alt=""
                 style={{ height: "20px", cursor: "pointer" }}
                 srcset=""
-                onClick={handleDelete}
+                onClick={handleEdit}
               />
             </span>
-            <span>
+            <span onClick={handleDelete}>
               <img
                 src={delImg}
                 alt=""

@@ -31,7 +31,7 @@ function ExploreThumbnail({id, title, userName, previewImage}) {
             {/* <div class="post-exerpt">
             </div> */}
             <div class="post-btn">
-              <a href="post-single.html" class="btn-read-more">
+              <a href="" style={{color: "black", textTransform: "none"}}>
                 Continue Reading <i class="las la-long-arrow-alt-right"></i>
               </a>
             </div>

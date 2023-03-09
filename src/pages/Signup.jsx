@@ -1,33 +1,50 @@
 import { React, useState } from "react";
-import axios from "axios";
+import ExploreNavbar from "../components/ExploreNavbar";
 import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
-import ExploreNavbar from "../components/ExploreNavbar";
+import axios from "axios";
 
-function Login() {
+function Signup() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
   function handleSubmit() {
+    if (
+      userEmail.length == 0 ||
+      userPassword.length == 0 ||
+      userName.length == 0
+    ) {
+      alert("Please fill all fields");
+      return;
+    }
+
     axios
-      .post("http://localhost:8000/api/v1/login", {
-        userEmail,
-        userPassword,
-      })
+      .post(
+        "http://localhost:8000/api/v1/signup",
+        {
+          userName,
+          userEmail,
+          userPassword,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((res) => {
-        const data = res.data;
-        if (data.success === true) {
-          // need to work on this feature
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("email", data.userEmail);
-          localStorage.setItem("name", data.userName);
-          navigate("/explore");
+        if (res.data.status === true) {
+          navigate("/login");
         } else {
-          alert("Login failed");
+          alert(res.data.message);
         }
       })
-      .catch((err) => alert("Some error occured"));
+      .catch((err) => {
+        alert("Some error occured");
+        console.log(err);
+      });
   }
 
   return (
@@ -38,15 +55,25 @@ function Login() {
           <div class="row">
             <div class="col-lg-6 col-md-8 m-auto">
               <div class="login-content">
-                <h4>Login</h4>
+                <h4>Sign up</h4>
                 <p></p>
                 <form action="#" class="sign-form widget-form " method="post">
                   <div class="form-group">
                     <input
                       type="text"
+                      class="form-control"
+                      placeholder="User name*"
+                      name="username"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="email"
                       onChange={(e) => setUserEmail(e.target.value)}
                       class="form-control"
-                      placeholder="Username*"
+                      placeholder="User email*"
                       name="username"
                       value={userEmail}
                     />
@@ -61,24 +88,19 @@ function Login() {
                       onChange={(e) => setUserPassword(e.target.value)}
                     />
                   </div>
-                  <div class="sign-controls form-group">
-                    <a href="#" class="btn-link ">
-                      Forgot Password?
-                    </a>
-                  </div>
                   <div class="form-group">
                     <button
                       type="button"
                       class="btn-custom"
                       onClick={handleSubmit}
                     >
-                      Login
+                      Sign up
                     </button>
                   </div>
                   <p class="form-group text-center">
-                    Don't have an account?{" "}
-                    <NavLink to="/signup">
-                      <span class="btn-link">Create One</span>{" "}
+                    Already have a account ?{" "}
+                    <NavLink to="/login">
+                      <span class="btn-link">Sign In</span>{" "}
                     </NavLink>
                   </p>
                 </form>
@@ -92,4 +114,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

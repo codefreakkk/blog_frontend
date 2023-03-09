@@ -83,7 +83,7 @@ function Header() {
                         <a
                           onClick={handleWrite}
                           class="nav-link dropdown-toggle"
-                          style={{cursor: "pointer"}}
+                          style={{ cursor: "pointer" }}
                         >
                           Write
                         </a>
@@ -92,16 +92,20 @@ function Header() {
                       <></>
                     )}
 
-                    {loginState ? (<li class="nav-item dropdown">
-                      <NavLink to="/drafts">
-                        <a
-                          class="nav-link dropdown-toggle"
-                          data-toggle="dropdown"
-                        >
-                          Drafts
-                        </a>
-                      </NavLink>
-                    </li>) : <></>}
+                    {loginState ? (
+                      <li class="nav-item dropdown">
+                        <NavLink to="/drafts">
+                          <a
+                            class="nav-link dropdown-toggle"
+                            data-toggle="dropdown"
+                          >
+                            Drafts
+                          </a>
+                        </NavLink>
+                      </li>
+                    ) : (
+                      <></>
+                    )}
 
                     <li class="nav-item dropdown">
                       <NavLink to="/about">
@@ -123,22 +127,7 @@ function Header() {
                             class="nav-link dropdown-toggle"
                             data-toggle="dropdown"
                           >
-                            login
-                          </a>
-                        </NavLink>
-                      </li>
-                    )}
-
-                    {loginState ? (
-                      <div></div>
-                    ) : (
-                      <li class="nav-item dropdown">
-                        <NavLink to="/signup">
-                          <a
-                            class="nav-link dropdown-toggle"
-                            data-toggle="dropdown"
-                          >
-                            Signup
+                            Sign In
                           </a>
                         </NavLink>
                       </li>
@@ -148,17 +137,29 @@ function Header() {
               </nav>
             </div>
 
-            <div class="header-right">
-              <div class="botton-sub mr-4">
-                <a
-                  class="btn btn-dark"
-                  onClick={handleLogout}
-                  style={{ color: "white" }}
-                >
-                  {loginState ? "Logout" : "Subscribe"}
-                </a>
+            {loginState ? (
+              <div class="header-right">
+                <div class="botton-sub mr-4">
+                  <a
+                    class="btn btn-dark"
+                    onClick={handleLogout}
+                    style={{ color: "white" }}
+                  >
+                    {loginState ? "Logout" : "Get Started"}
+                  </a>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div class="header-right">
+                <NavLink to="/signup">
+                  <div class="botton-sub mr-4">
+                    <a class="btn btn-dark" style={{ color: "white" }}>
+                      Get Started
+                    </a>
+                  </div>
+                </NavLink>
+              </div>
+            )}
           </div>
         </div>
       </header>

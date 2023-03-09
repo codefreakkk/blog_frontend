@@ -6,7 +6,6 @@ import NewsLetter from "./NewsLetter";
 import axios from "axios";
 import PulseLoader from "react-spinners/PulseLoader";
 
-
 function Section2() {
   const [blog, setBlog] = useState([]);
   const [blogState, setBlogState] = useState(true);
@@ -22,7 +21,10 @@ function Section2() {
           alert("Some error occured");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        alert("Some error occured");
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -42,7 +44,9 @@ function Section2() {
 
                 {/* blog post start */}
                 {blogState == true ? (
-                  <div className="mt-2"><PulseLoader color="#747373" /></div>
+                  <div className="mt-2">
+                    <PulseLoader color="#747373" />
+                  </div>
                 ) : (
                   blog.map((result, index) => {
                     // console.log(result);

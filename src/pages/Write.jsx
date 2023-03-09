@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from "react";
-import Header from "../components/Header";
 import remove from "../assets/images/close.png";
 import header from "../assets/images/headers.png";
 import text from "../assets/images/text.png";
@@ -12,20 +11,21 @@ import axios from "axios";
 import WriteBlogHeader from "../components/WriteBlogHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
+import preimg from "../assets/images/previewimage.png";
 
 function Write() {
   const [formValues, setFormValues] = useState([{ id: "text", value: "" }]);
   const [title, setTitle] = useState("");
   const [imageName, setImageName] = useState([]);
-  const [previewImage, setPreviewImage] = useState("");
+  const [previewImage, setPreviewImage] = useState(null);
   const [preview, setPreviewImg] = useState("");
   const [previewImageState, setPreviewImageState] = useState(false);
   const [submit, submitState] = useState(false);
   const [alertState, setAlertState] = useState(false);
   const [msg, setAlertMsg] = useState("");
   const [color, setColor] = useState("");
-  const { id } = useParams();
   const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
     axios
@@ -197,7 +197,10 @@ function Write() {
       .then((res) => {
         console.log(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        alert("Some error occured");
+        console.log(err);
+      });
   }
 
   function handleSubmit(e) {
@@ -238,16 +241,21 @@ function Write() {
       },
     })
       .then((res) => {
+        console.log(res);
         if (res.data.status == true) {
           submitState(false);
           setAlertMsg("Your blog has been published.");
           setAlertState(true);
           setColor("#03a87c");
         } else {
-          alert(res.data.message);
+          setAlertMsg("Please add preview image before submitting.");
+          setColor("rgba(236, 33, 33, 0.753)");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        alert("Some error occured");
+        console.log(err);
+      });
   }
 
   return (
@@ -255,7 +263,9 @@ function Write() {
       <WriteBlogHeader />
       {alertState ? (
         <div className="alert_container">
-          <div className="alert_inner" style={{backgroundColor: color}}>{msg}</div>
+          <div className="alert_inner" style={{ backgroundColor: color }}>
+            {msg}
+          </div>
         </div>
       ) : (
         <></>
@@ -304,12 +314,11 @@ function Write() {
               <img src={tag} style={{ height: "25px" }} alt="" />
             </span>
             <label htmlFor="previewImg" style={{ cursor: "pointer" }}>
-              pre
+              <img src={preimg} style={{ height: "30px" }} alt="" />
               <span>
                 <input
                   style={{ display: "none" }}
                   type="file"
-                  name=""
                   accept="image/png , image/jpg , image/jpeg"
                   onChange={setPreviewPhoto}
                   id="previewImg"

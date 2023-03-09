@@ -6,11 +6,14 @@ function BlogPostThumnail({title, previewImage, userName}) {
     <>
       <div class="post-list post-list-style4">
         <div class="post-list-image">
-          <a href="post-single.html">
-            <img src={previewImage} alt="" />
+          <a href="">
+            <img style={{height: "20vh"}} src={previewImage} alt="" />
           </a>
         </div>
         <div class="post-list-content">
+          <h3 class="entry-title">
+            <a>{title.substring(0, 80)}</a>
+          </h3>
           <ul class="entry-meta">
             <li class="entry-cat">
               <a class="category-style-1">Contributed By </a>
@@ -20,9 +23,6 @@ function BlogPostThumnail({title, previewImage, userName}) {
               <span class="line"></span> {userName}
             </li>
           </ul>
-          <h5 class="entry-title">
-            <a>{title.substring(0, 60)}</a>
-          </h5>
           <div class="post-btn">
             <a class="btn-read-more">
               Continue Reading <i class="las la-long-arrow-alt-right"></i>

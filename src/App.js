@@ -13,13 +13,16 @@ import Write from "./pages/Write";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Drafts from "./pages/Drafts";
 import Login from "./pages/Login";
+import Aboutus from "./pages/Aboutus";
+import Contact from "./pages/Contact";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-      <Routes>
-          <Route path="/login" element={<Login/>} />
+        <Routes>
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Routes>
           <Route path="/blog" element={<BlogPost />} />
@@ -31,10 +34,19 @@ function App() {
           <Route path="/post" element={<BlogPost />} />
         </Routes>
         <Routes>
-          <Route path="/drafts" element={<Drafts/>} />
+          <Route path="/drafts" element={<Drafts />} />
+        </Routes>
+        <Routes>
+          <Route path="/about" element={<Aboutus />} />
         </Routes>
         <Routes>
           <Route path="/write/:id" element={<Write />} />
+        </Routes>
+        <Routes>
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        <Routes>
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         <Routes>
           <Route path="/" element={<Home />} />

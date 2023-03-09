@@ -80,7 +80,7 @@ function ExploreNavbar() {
                         <a
                           onClick={handleWrite}
                           class="nav-link dropdown-toggle"
-                          style={{cursor: "pointer"}}
+                          style={{ cursor: "pointer" }}
                         >
                           Write
                         </a>
@@ -124,22 +124,7 @@ function ExploreNavbar() {
                             class="nav-link dropdown-toggle"
                             data-toggle="dropdown"
                           >
-                            login
-                          </a>
-                        </NavLink>
-                      </li>
-                    )}
-
-                    {loginState ? (
-                      <div></div>
-                    ) : (
-                      <li class="nav-item dropdown">
-                        <NavLink to="/signup">
-                          <a
-                            class="nav-link dropdown-toggle"
-                            data-toggle="dropdown"
-                          >
-                            Signup
+                            Sign In
                           </a>
                         </NavLink>
                       </li>
@@ -149,17 +134,29 @@ function ExploreNavbar() {
               </nav>
             </div>
 
-            <div class="header-right">
-              <div class="botton-sub mr-4">
-                <a
-                  class="btn btn-dark"
-                  onClick={handleLogout}
-                  style={{ color: "white" }}
-                >
-                  {loginState ? "Logout" : "Subscribe"}
-                </a>
+            {loginState ? (
+              <div class="header-right">
+                <div class="botton-sub mr-4">
+                  <a
+                    class="btn btn-dark"
+                    onClick={handleLogout}
+                    style={{ color: "white" }}
+                  >
+                    {loginState ? "Logout" : "Get Started"}
+                  </a>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div class="header-right">
+                <NavLink to="/signup">
+                  <div class="botton-sub mr-4">
+                    <a class="btn btn-dark" style={{ color: "white" }}>
+                      Get Started
+                    </a>
+                  </div>
+                </NavLink>
+              </div>
+            )}
           </div>
         </div>
       </header>

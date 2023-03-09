@@ -10,28 +10,28 @@ function Tags() {
         <div class="widget-tags">
           <ul class="list-inline">
             <li>
-              <a>Travel</a>
+              <a>Programming</a>
             </li>
             <li>
-              <a>Travel</a>
+              <a>DSA</a>
             </li>
             <li>
-              <a>Travel</a>
+              <a>Web developement</a>
             </li>
             <li>
-              <a>Travel</a>
+              <a>Dynamic Programming</a>
             </li>
             <li>
-              <a>Travel</a>
+              <a>Graph</a>
             </li>
             <li>
-              <a>Travel</a>
+              <a>Backend</a>
             </li>
             <li>
-              <a>Travel</a>
+              <a>Java</a>
             </li>
             <li>
-              <a>Travel</a>
+              <a>Frameworks</a>
             </li>
           </ul>
         </div>

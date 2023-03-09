@@ -27,7 +27,7 @@ function DraftSection() {
 
   return (
     <>
-      <section class="blog-layout-5">
+      <section class="blog-layout 5">
         <div class="container-fluid">
           <div class="row">
             {/* <!--conetnt--> */}
@@ -36,15 +36,17 @@ function DraftSection() {
                 class="theiaStickySidebar"
                 id="draftsection"
                 style={{
-                  height: "80vh",
+                  height: "75vh",
                   overflowY: "scroll",
-                  marginBottom: "5vh",
+                  marginBottom: "10vh",
                 }}
               >
                 {/* Blog post */}
                 {blog.length === 0 ? <div>No blogs to show</div> : <></>}
                 {blogState === true ? (
-                  <div className="mt-3"><PulseLoader color="#747373" /></div>
+                  <div className="mt-3">
+                    <PulseLoader color="#747373" />
+                  </div>
                 ) : (
                   blog.map((result, index) => {
                     return (
