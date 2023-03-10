@@ -40,12 +40,14 @@ function Write() {
           const content = data.content;
           if (content.length != 0) {
             const parsed = JSON.parse(content);
+            
             let index = 0;
             let filter = parsed.filter((result) => {
               if (result.id == "image") {
                 return (result.value = data.images[index++]);
               } else return result;
             });
+
             setFormValues(filter);
             setTitle(data.title);
             setPreviewImg(data.previewImage);

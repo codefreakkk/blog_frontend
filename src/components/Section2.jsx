@@ -67,7 +67,7 @@ function Section2() {
             <div class="col-lg-4 oredoo-sidebar">
               <div class="theiaStickySidebar">
                 <div class="sidebar">
-                  <div class="widget">
+                  {/* <div class="widget">
                     <div class="widget-title">
                       <h5>Search</h5>
                     </div>
@@ -84,7 +84,7 @@ function Section2() {
                         </a>
                       </form>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* newsletter start */}
                   <NewsLetter />

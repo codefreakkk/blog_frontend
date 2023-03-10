@@ -8,6 +8,9 @@ function Signup() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userName, setUserName] = useState("");
+  const [alertState, setAlertState] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
+  const [alertColor, setAlertColor] = useState("");
   const navigate = useNavigate();
 
   function handleSubmit() {
@@ -16,7 +19,9 @@ function Signup() {
       userPassword.length == 0 ||
       userName.length == 0
     ) {
-      alert("Please fill all fields");
+      setAlertMsg("Please fill all fields");
+      setAlertColor("danger");
+      setAlertState(true);
       return;
     }
 
@@ -35,10 +40,17 @@ function Signup() {
         }
       )
       .then((res) => {
+        setUserEmail("");
+        setUserName("");
+        setUserPassword("");
         if (res.data.status === true) {
-          navigate("/login");
+          setAlertColor("success");
+          setAlertMsg("You have signed up successfully");
+          setAlertState(true);
         } else {
-          alert(res.data.message);
+          setAlertColor("danger");
+          setAlertMsg(res.data.message);
+          setAlertState(true);
         }
       })
       .catch((err) => {
@@ -54,6 +66,14 @@ function Signup() {
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-6 col-md-8 m-auto">
+              {alertState ? (
+                <div class={`alert alert-${alertColor}`} role="alert">
+                  {alertMsg}
+                </div>
+              ) : (
+                <></>
+              )}
+
               <div class="login-content">
                 <h4>Sign up</h4>
                 <p></p>

@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/img/author/5.jpg";
+import { NavLink } from "react-router-dom";
 
 function ExploreThumbnail({id, title, userName, previewImage}) {
   return (
@@ -8,9 +8,11 @@ function ExploreThumbnail({id, title, userName, previewImage}) {
         <div class="post-list post-list-style3">
           <div class="post-list-content">
             <h4 class="entry-title">
+              <NavLink to={`/blog/${id}`}>
               <a href="">
                 {title}
               </a>
+              </NavLink>
             </h4>
             <ul class="entry-meta">
               <li class="post-author-img">

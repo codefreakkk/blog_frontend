@@ -7,9 +7,19 @@ import ExploreNavbar from "../components/ExploreNavbar";
 function Login() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [alertState, setAlertState] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
+  const [alertColor, setAlertColor] = useState("");
   const navigate = useNavigate();
 
   function handleSubmit() {
+    if (userEmail.length == 0 || userPassword.length == 0) {
+      setAlertMsg("Please fill all fields");
+      setAlertColor("danger");
+      setAlertState(true);
+      return;
+    }
+
     axios
       .post("http://localhost:8000/api/v1/login", {
         userEmail,
@@ -24,7 +34,9 @@ function Login() {
           localStorage.setItem("name", data.userName);
           navigate("/explore");
         } else {
-          alert("Login failed");
+          setAlertColor("danger");
+          setAlertMsg(res.data.message);
+          setAlertState(true);
         }
       })
       .catch((err) => alert("Some error occured"));
@@ -37,6 +49,13 @@ function Login() {
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-6 col-md-8 m-auto">
+              {alertState ? (
+                <div class={`alert alert-${alertColor}`} role="alert">
+                  {alertMsg}
+                </div>
+              ) : (
+                <></>
+              )}
               <div class="login-content">
                 <h4>Login</h4>
                 <p></p>
