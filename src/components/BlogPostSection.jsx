@@ -13,11 +13,7 @@ function BlogPostSection() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/v1/getblogbyid/${id}`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
+      .get(`http://localhost:8000/api/v1/getblogbyid/${id}`)
       .then((res) => {
         const data = res.data;
         if (data.status === true) {

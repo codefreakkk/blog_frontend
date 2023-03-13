@@ -1,11 +1,11 @@
 import React from "react";
 import BlogPostSection from "../components/BlogPostSection";
-import Header from "../components/Header";
+import ExploreNavbar from "../components/ExploreNavbar";
 
 function BlogPost() {
   return (
     <>
-      <Header/>
+      <ExploreNavbar />
       <BlogPostSection/>
      
     </>

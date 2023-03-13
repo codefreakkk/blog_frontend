@@ -53,6 +53,7 @@ function Section2() {
                     return (
                       <BlogPostThumnail
                         key={index}
+                        id={result._id}
                         title={result.title}
                         previewImage={result.previewImage}
                         userName={result.userName}

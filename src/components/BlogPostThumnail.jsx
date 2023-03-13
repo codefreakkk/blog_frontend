@@ -1,18 +1,21 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import logo from "../assets/img/blog/21.jpg";
 
-function BlogPostThumnail({title, previewImage, userName}) {
+function BlogPostThumnail({ id, title, previewImage, userName }) {
   return (
     <>
       <div class="post-list post-list-style4">
         <div class="post-list-image">
           <a href="">
-            <img style={{height: "20vh"}} src={previewImage} alt="" />
+            <img style={{ height: "20vh" }} src={previewImage} alt="" />
           </a>
         </div>
         <div class="post-list-content">
           <h3 class="entry-title">
-            <a>{title.substring(0, 80)}</a>
+            <NavLink to={`/blog/${id}`}>
+              <a>{title.substring(0, 80)}</a>
+            </NavLink>
           </h3>
           <ul class="entry-meta">
             <li class="entry-cat">

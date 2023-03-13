@@ -2,14 +2,16 @@ import axios from "axios";
 import { React, useEffect, useState } from "react";
 import ExploreThumbnail from "./ExploreThumbnail";
 import PulseLoader from "react-spinners/PulseLoader";
+import arrow from "../assets/images/down.png"
 
 function ExploreSection1() {
   const [blog, setBlog] = useState([]);
   const [blogState, setBlogState] = useState(true);
+  const [count, setCount] = useState(8);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/getposts")
+      .post("http://localhost:8000/api/v1/getposts", {count})
       .then((res) => {
         if (res.data.status === true) {
           setBlog(res.data.data);
@@ -17,7 +19,11 @@ function ExploreSection1() {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [count]);
+
+  function handleCount() {
+    setCount(count + 9);
+  }
 
   return (
     <>
@@ -59,6 +65,10 @@ function ExploreSection1() {
                 );
               })
             )}
+            <div className="load_more">
+              <div className="load_inner" onClick={handleCount}><span>Load More</span>
+              <span className="load_image"><img src={arrow} alt="" style={{height: "20px"}} srcset="" /></span></div>
+            </div>
           </div>
         </div>
       </section>
