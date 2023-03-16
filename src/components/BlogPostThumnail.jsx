@@ -26,11 +26,16 @@ function BlogPostThumnail({ id, title, previewImage, userName }) {
               <span class="line"></span> {userName}
             </li>
           </ul>
-          <div class="post-btn">
-            <a class="btn-read-more">
-              Continue Reading <i class="las la-long-arrow-alt-right"></i>
-            </a>
-          </div>
+          <NavLink
+            to={`/blog/${id}`}
+            style={{ color: "black", textDecoration: "none" }}
+          >
+            <div class="post-btn">
+              <a class="btn-read-more">
+                Continue Reading <i class="las la-long-arrow-alt-right"></i>
+              </a>
+            </div>
+          </NavLink>
         </div>
       </div>
     </>

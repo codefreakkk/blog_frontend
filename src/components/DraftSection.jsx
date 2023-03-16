@@ -66,7 +66,7 @@ function DraftSection() {
               <div class="theiaStickySidebar">
                 <div class="sidebar">
                   {/* <!--search--> */}
-                  <div class="widget">
+                  {/* <div class="widget">
                     <div class="widget-title">
                       <h5>Search</h5>
                     </div>
@@ -83,7 +83,7 @@ function DraftSection() {
                         </a>
                       </form>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* <!--newslatter--> */}
                   <NewsLetter />

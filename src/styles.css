@@ -196,10 +196,44 @@
 
 .load_inner {
   cursor: pointer;
-  color: #2563EB;
+  color: black;
   font-weight: 500;
+  font-family: "Inter", sans-serif;
 }
 
 .load_image {
   margin-left: 10px;
+}
+
+.cat_container {
+  /* background-color: red; */
+  /* padding-top: 15vh; */
+}
+
+.cat_inner {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+
+.cat {
+  /* background-color: red; */
+  /* width: 75%; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cat_title {
+  padding-top: 5px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  /* color: rgb(14, 94, 243); */
+  color: black;
+}
+
+.pointer {
+  cursor: pointer;
 }

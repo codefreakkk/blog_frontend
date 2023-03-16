@@ -1,6 +1,6 @@
 import React from "react";
 
-function ExploreHeader() {
+function ExploreHeader({title}) {
   return (
     <>
       <div class="section-heading section-heading-light">
@@ -9,12 +9,12 @@ function ExploreHeader() {
             <div class="row">
               <div class="col-lg-12">
                 <div class="section-heading-3-title">
-                  <h1>Explore</h1>
+                  <h1>{title}</h1>
                   <p class="links">
                     <a>
                       Home <i class="las la-angle-right"></i>
                     </a>{" "}
-                    Explore
+                    {title}
                   </p>
                   <p class="desc">
                     A comprehensive Solutions to all of your coding needs,

@@ -78,6 +78,17 @@ function Header() {
                       </NavLink>
                     </li>
 
+                    <li class="nav-item dropdown">
+                      <NavLink to="/categories">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          data-toggle="dropdown"
+                        >
+                          Categories
+                        </a>
+                      </NavLink>
+                    </li>
+
                     {loginState ? (
                       <li class="nav-item dropdown">
                         <a
@@ -107,16 +118,7 @@ function Header() {
                       <></>
                     )}
 
-                    <li class="nav-item dropdown">
-                      <NavLink to="/about">
-                        <a
-                          class="nav-link dropdown-toggle"
-                          data-toggle="dropdown"
-                        >
-                          About
-                        </a>
-                      </NavLink>
-                    </li>
+                   
 
                     {loginState ? (
                       <div></div>

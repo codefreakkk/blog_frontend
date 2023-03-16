@@ -16,11 +16,19 @@ import Login from "./pages/Login";
 import Aboutus from "./pages/Aboutus";
 import Contact from "./pages/Contact";
 import Signup from "./pages/Signup";
+import Categories from "./pages/Categories";
+import Blogcategory from "./pages/Blogcategory";
 
 function App() {
   return (
     <>
       <BrowserRouter>
+        <Routes>
+          <Route path="/categories/:id" element={<Blogcategory />} />
+        </Routes>
+        <Routes>
+          <Route path="/categories" element={<Categories />} />
+        </Routes>
         <Routes>
           <Route path="/login" element={<Login />} />
         </Routes>

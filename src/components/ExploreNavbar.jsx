@@ -75,6 +75,17 @@ function ExploreNavbar() {
                       </NavLink>
                     </li>
 
+                    <li class="nav-item dropdown">
+                      <NavLink to="/categories">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          data-toggle="dropdown"
+                        >
+                          Categories
+                        </a>
+                      </NavLink>
+                    </li>
+
                     {loginState ? (
                       <li class="nav-item dropdown">
                         <a
@@ -88,6 +99,8 @@ function ExploreNavbar() {
                     ) : (
                       <></>
                     )}
+
+                    
 
                     {loginState ? (
                       <li class="nav-item dropdown">
@@ -104,16 +117,6 @@ function ExploreNavbar() {
                       <></>
                     )}
 
-                    <li class="nav-item dropdown">
-                      <NavLink to="/about">
-                        <a
-                          class="nav-link dropdown-toggle"
-                          data-toggle="dropdown"
-                        >
-                          About
-                        </a>
-                      </NavLink>
-                    </li>
 
                     {loginState ? (
                       <div></div>

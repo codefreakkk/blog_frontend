@@ -2,23 +2,25 @@ import axios from "axios";
 import { React, useEffect, useState } from "react";
 import ExploreThumbnail from "./ExploreThumbnail";
 import PulseLoader from "react-spinners/PulseLoader";
-import arrow from "../assets/images/down.png"
+import arrow from "../assets/images/down.png";
 
-function ExploreSection1() {
+function ExploreSection1({ url }) {
   const [blog, setBlog] = useState([]);
   const [blogState, setBlogState] = useState(true);
   const [count, setCount] = useState(8);
 
   useEffect(() => {
     axios
-      .post("http://localhost:8000/api/v1/getposts", {count})
+      .post(`http://localhost:8000/api/v1/${url}`, { count })
       .then((res) => {
         if (res.data.status === true) {
           setBlog(res.data.data);
           setBlogState(false);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }, [count]);
 
   function handleCount() {
@@ -42,12 +44,12 @@ function ExploreSection1() {
               Search
             </button> */}
           </div>
+          {blog.length === 0 ? (
+            <div className="">No blogs to show</div>
+          ) : (
+            <div></div>
+          )}
           <div class="row" style={{ paddingBottom: "5vh" }}>
-            {/* {blog.length === 0 ? (
-              <div className="ml-3 mb-5">No blogs to show</div>
-            ) : (
-              <></>
-            )} */}
             {blogState == true ? (
               <div className="mt-2 ml-3">
                 <PulseLoader color="#747373" />
@@ -66,8 +68,17 @@ function ExploreSection1() {
               })
             )}
             <div className="load_more">
-              <div className="load_inner" onClick={handleCount}><span>Load More</span>
-              <span className="load_image"><img src={arrow} alt="" style={{height: "20px"}} srcset="" /></span></div>
+              <div className="load_inner" onClick={handleCount}>
+                <span>Load More</span>
+                <span className="load_image">
+                  <img
+                    src={arrow}
+                    alt=""
+                    style={{ height: "13px" }}
+                    srcset=""
+                  />
+                </span>
+              </div>
             </div>
           </div>
         </div>

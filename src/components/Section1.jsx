@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 import "../styles.css";
 
 function Section1() {
@@ -14,7 +15,10 @@ function Section1() {
                                 <div class="post-overly">
                                     <div class="post-overly-content">
                                         <div class="entry-cat">
+                                            <NavLink to="/explore">
+
                                             <a href="" class="category-style-2">view</a>
+                                            </NavLink>
                                         </div>
                                         <h2 class="entry-title" style={{color: "white", fontWeight: "800"}}>
                                             <a>A public platform building the definitive collection of coding solutions and answers</a>

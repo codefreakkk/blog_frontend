@@ -16,11 +16,7 @@ function ContactSection() {
               <div class="col-lg-6">
                 <div class="contact-info">
                   <h3>feel free to contact us</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Cupiditate deserunt suscipit error deleniti porro, pariatur
-                    voluptatem iste quos maxime aspernatur.
-                  </p>
+                  <p></p>
                 </div>
                 <form
                   class="form contact_form "

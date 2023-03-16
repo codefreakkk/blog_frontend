@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function ExploreThumbnail({id, title, userName, previewImage}) {
+function ExploreThumbnail({ id, title, userName, previewImage }) {
   return (
     <>
       <div class=" col-lg-6 ">
@@ -9,9 +9,7 @@ function ExploreThumbnail({id, title, userName, previewImage}) {
           <div class="post-list-content">
             <h4 class="entry-title">
               <NavLink to={`/blog/${id}`}>
-              <a href="">
-                {title}
-              </a>
+                <a href="">{title}</a>
               </NavLink>
             </h4>
             <ul class="entry-meta">
@@ -32,11 +30,16 @@ function ExploreThumbnail({id, title, userName, previewImage}) {
             </ul>
             {/* <div class="post-exerpt">
             </div> */}
-            <div class="post-btn">
-              <a href="" style={{color: "black", textTransform: "none"}}>
-                Continue Reading <i class="las la-long-arrow-alt-right"></i>
-              </a>
-            </div>
+            <NavLink
+              to={`/blog/${id}`}
+              style={{ color: "black", textDecoration: "none" }}
+            >
+              <div class="post-btn">
+                <a href="" style={{ color: "black", textDecoration: "none",textTransform: "none" }}>
+                  Continue Reading <i class="las la-long-arrow-alt-right"></i>
+                </a>
+              </div>
+            </NavLink>
           </div>
         </div>
       </div>

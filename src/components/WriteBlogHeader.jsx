@@ -50,6 +50,18 @@ function WriteBlogHeader() {
                       </a>
                     </NavLink>
                   </li>
+
+                  <li class="nav-item dropdown">
+                    <NavLink to="/categories">
+                      <a
+                        class="nav-link dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        Categories
+                      </a>
+                    </NavLink>
+                  </li>
+
                   {loginState ? (
                     <li class="nav-item dropdown">
                     <NavLink to="/drafts">
@@ -63,16 +75,7 @@ function WriteBlogHeader() {
                     </NavLink>
                   </li>
                   ) : <></>}
-                  <li class="nav-item dropdown">
-                    <NavLink to="/about">
-                      <a
-                        class="nav-link dropdown-toggle"
-                        data-toggle="dropdown"
-                      >
-                        About
-                      </a>
-                    </NavLink>
-                  </li>
+                  
                 </ul>
               </div>
             </nav>

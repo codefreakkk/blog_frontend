@@ -14,28 +14,28 @@ function StayConnected() {
               <a href="#">
                 <i class="fab fa-facebook"></i>
               </a>
-              <p>Facebook 12k</p>
+              <p>Facebook</p>
             </div>
 
             <div class="item color-instagram">
               <a href="#">
                 <i class="fab fa-instagram"></i>
               </a>
-              <p>instagram 102k</p>
+              <p>instagram</p>
             </div>
 
             <div class="item color-twitter">
               <a href="#">
                 <i class="fab fa-twitter"></i>
               </a>
-              <p>twitter 22k</p>
+              <p>twitter</p>
             </div>
 
             <div class="item color-youtube">
               <a href="#">
                 <i class="fab fa-youtube"></i>
               </a>
-              <p>Youtube 120k</p>
+              <p>Youtube</p>
             </div>
           </div>
         </div>
