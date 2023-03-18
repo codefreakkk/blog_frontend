@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect,  useState } from "react";
 import ExploreNavbar from "../components/ExploreNavbar";
 import frontend from "../assets/images/frontend.png";
 import backend from "../assets/images/backend.png";
@@ -11,8 +11,25 @@ import coding from "../assets/images/coding.png";
 import computer from "../assets/images/computer.png";
 import Footer from "../components/Footer";
 import ExploreHeader from "../components/ExploreHeader";
+import axios from "axios";
 
 function Categories() {
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/v1/getallcategories")
+      .then((res) => {
+        const data = res.data;
+        if (data.status === true) {
+          console.log(data.data);
+          setCategories(data.data);
+        } else {
+          alert("Some error occured");
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <ExploreNavbar />
