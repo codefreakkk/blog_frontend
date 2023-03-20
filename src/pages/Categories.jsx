@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import ExploreNavbar from "../components/ExploreNavbar";
 import frontend from "../assets/images/frontend.png";
 import backend from "../assets/images/backend.png";
-import devops from "../assets/images/devops.png";
+import other from "../assets/images/menu.png";
 import java from "../assets/images/java.png";
 import javascript from "../assets/images/javascript.png";
 import linux from "../assets/images/linux.png";
@@ -75,7 +75,7 @@ function Categories() {
                 <div className="cat">
                   <div>
                     <img
-                      src={devops}
+                      src={other}
                       className="pointer"
                       style={{ height: "50px" }}
                       alt=""
@@ -83,7 +83,7 @@ function Categories() {
                     />
                   </div>
                   <NavLink to={`/categories/${categories[8]._id}`}>
-                    <div className="cat_title">Devops</div>
+                    <div className="cat_title">Others</div>
                   </NavLink>
                 </div>
               </div>

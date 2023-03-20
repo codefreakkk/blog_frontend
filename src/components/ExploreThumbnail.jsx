@@ -9,10 +9,10 @@ function ExploreThumbnail({ id, title, userName, previewImage }) {
           <div class="post-list-content">
             <h4 class="entry-title">
               <NavLink to={`/blog/${id}`}>
-                <a href="">{title}</a>
+                <a href="">{title.substring(0, 40)}...</a>
               </NavLink>
             </h4>
-            <ul class="entry-meta">
+            <ul class="entry-meta" style={{marginLeft: "-30px"}}>
               <li class="post-author-img">
                 <img src={previewImage} alt="" />
               </li>

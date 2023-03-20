@@ -16,6 +16,8 @@ function ExploreSection1({ url }) {
         if (res.data.status === true) {
           setBlog(res.data.data);
           setBlogState(false);
+        } else {
+          alert("Some error occured while fetching data")
         }
       })
       .catch((err) => {
@@ -68,7 +70,7 @@ function ExploreSection1({ url }) {
               })
             )}
             <div className="load_more">
-              <div className="load_inner" onClick={handleCount}>
+              {blog.length < 8 ? <></> :<div className="load_inner" onClick={handleCount}>
                 <span>Load More</span>
                 <span className="load_image">
                   <img
@@ -78,7 +80,7 @@ function ExploreSection1({ url }) {
                     srcset=""
                   />
                 </span>
-              </div>
+              </div>}
             </div>
           </div>
         </div>

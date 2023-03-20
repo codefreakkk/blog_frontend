@@ -14,12 +14,12 @@ function BlogPostThumnail({ id, title, previewImage, userName }) {
         <div class="post-list-content">
           <h3 class="entry-title">
             <NavLink to={`/blog/${id}`}>
-              <a>{title.substring(0, 80)}</a>
+              <a>{title.substring(0, 120)}</a>
             </NavLink>
           </h3>
           <ul class="entry-meta">
             <li class="entry-cat">
-              <a class="category-style-1">Contributed By </a>
+              <a class="category-style-1" style={{marginLeft: "-30px"}}>Contributed By </a>
             </li>
             <li class="post-date">
               {" "}

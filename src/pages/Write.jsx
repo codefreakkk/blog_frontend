@@ -24,6 +24,8 @@ function Write() {
   const [alertState, setAlertState] = useState(false);
   const [msg, setAlertMsg] = useState("");
   const [color, setColor] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [cat, setCat] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -40,7 +42,7 @@ function Write() {
           const content = data.content;
           if (content.length != 0) {
             const parsed = JSON.parse(content);
-            
+
             let index = 0;
             let filter = parsed.filter((result) => {
               if (result.id == "image") {
@@ -59,6 +61,20 @@ function Write() {
       })
       .catch((err) => {
         navigate("/");
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/v1/getallcategories")
+      .then((res) => {
+        const data = res.data.data;
+        setCategories(data);
+        setCat(data[0]._id);
+        console.log(data[0]._id);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -173,6 +189,11 @@ function Write() {
     setFormValues(values);
   }
 
+  function handleCategory(e) {
+    const value = e.target.value;
+    setCat(value);
+  }
+
   function deleteImage(index) {
     let values = [...formValues];
     const image = values[index].files.name;
@@ -240,6 +261,7 @@ function Write() {
         title: title,
         previewImage: previewImage,
         userName: localStorage.getItem("name"),
+        cat: cat,
       },
     })
       .then((res) => {
@@ -355,6 +377,21 @@ function Write() {
           <></>
         )}
 
+        {/* category */}
+        <div className="mb-4 cat_cont">
+          <div className="cat">
+            <select class="form-select" onChange={handleCategory}>
+              {categories.length > 0 ? (
+                categories.map((result) => {
+                  return <option value={result._id}>{result.categoryName}</option>;
+                })
+              ) : (
+                <></>
+              )}
+            </select>
+          </div>
+        </div>
+
         {/* enter title */}
         <div className="mb-3 header_container">
           <textarea
@@ -362,7 +399,7 @@ function Write() {
             id="title"
             rows="1"
             value={title}
-            placeholder="Enter Title"
+            placeholder="Enter Blog Title"
             onChange={(e) => setTitle(e.target.value)}
           ></textarea>
         </div>

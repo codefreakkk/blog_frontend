@@ -206,6 +206,7 @@
 }
 
 .cat_container {
+  /* padding-left: 15vh; */
   /* background-color: red; */
   /* padding-top: 15vh; */
 }
@@ -213,6 +214,7 @@
 .cat_inner {
   padding-top: 50px;
   padding-bottom: 40px;
+  padding-left: 20vh;
 }
 
 .cat {
@@ -236,4 +238,14 @@
 
 .pointer {
   cursor: pointer;
+}
+
+.cat_cont {
+  /* background-color: red; */
+  display: flex;
+  /* justify-content: flex-end; */
+}
+
+.cat {
+  width: 20%;
 }
